@@ -24,14 +24,18 @@ Water Gun,Water,Special,Cute,25,40,100
 Ice Beam,Ice,Special,Beautiful,10,90,100
 Blizzard,Ice,Special,Beautiful,5,110,None
 Psybeam,Psychic,Special,Beautiful,20,65,100
+Baby Doll Eyes,Normal,Status,Cute,30,0,100
+Self Destruct,Normal,Physical,Beautiful,5,200,100
 Bubble Beam,Water,Special,Beautiful,20,65,100
 Hyper Beam,Normal,Special,Cool,5,150,90
+Double Edge,Normal,Physical,Tough,15,120,100
 Peck,Flying,Physical,Cool,35,35,100
 Submission,Fighting,Physical,Cool,20,80,80
 Strength,Normal,Physical,Tough,15,80,100
 Mega Drain,Grass,Special,Clever,15,40,100
 Razor Leaf,Grass,Physical,Cool,25,55,95
 Solar Beam,Grass,Special,Cool,10,120,100
+Mud Slap,Water,Special,Cute,10,20,100
 Thunder Shock,Electric,Special,Cool,30,40,100
 Thunderbolt,Electric,Special,Cool,15,90,100
 Thunder,Electric,Special,Cool,10,110,70
