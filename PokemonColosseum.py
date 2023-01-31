@@ -6,7 +6,6 @@
 #import statements for other python modules
 import random #import for random number generation
 from pokemon import newPokemon #import for pokemon object
-from que import Queue #import for que
 from Color import colors #import for color
 from mechanics import Moves #import for moves
 
