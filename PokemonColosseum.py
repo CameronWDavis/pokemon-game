@@ -17,6 +17,26 @@ def rocketMove(pokemonRocket: newPokemon, moveArray, pokemonPlayer:newPokemon):
     rocketMoves = [1,2,3,4,5]
     choice = random.choice(rocketMoves)
 
+
+    #case for Magikarp since it has a single move
+    if pokemonRocket.name == "Magikarp":
+        #for loop for setting the value
+      for i in moveArray:
+        if i.strip() == i.name:
+            rocketMoves[0] = i
+
+
+            dmg = calculateDamage(rocketMoves[0], pokemonRocket, pokemonPlayer)
+            print("Team rockets ", pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ",
+            rocketMoves[0].getType(), rocketMoves[0].name, colors.reset, " on ", pokemonPlayer.getType(),pokemonPlayer.name, colors.reset)
+            print("Damage to ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset, " is ", dmg)
+            pokemonPlayer.health = int(pokemonPlayer.health) - dmg
+            rocketData = {
+                "pokemonPlayer": pokemonPlayer,
+                "pokemonRocket": pokemonRocket
+            }
+            return rocketData
+
     index = 0
     for x in pokemonRocket.moves:
         for i in moveArray:
@@ -108,6 +128,32 @@ def typeMatchup(move:Moves, pokemonB:newPokemon):
 #module for players moves
 def playerTurn(pokemonA: newPokemon,pokemonB: newPokemon,movesArray: Moves):
     #sets a array of size 4 for adding move data
+   playerOptions = [0, 1, 2, 3, 4]
+
+    #code for dealing with Magikarp
+   if pokemonA.name == "Magikarp":
+     for  i in movesArray:
+        if pokemonA.moves[0] == i.name:
+         playerOptions[0] == i
+         print("How will ",colors.fontcolor.blue,"Magkikarp attack ", pokemonB.getType(),pokemonB.name,colors.reset)
+         choice = input("1) Tackle")
+         while choice != "1":
+             print("How will ", colors.fontcolor.blue, "Magkikarp attack ", pokemonB.getType(), pokemonB.name,
+                   colors.reset)
+             choice = input("1) Tackle")
+         dmg = calculateDamage(playerOptions[0], pokemonA, pokemonB)
+         print(pokemonA.getType(), pokemonA.name, colors.reset, " used ", playerOptions[0].getType(), playerOptions[0].name, colors.reset,
+               " on ", pokemonB.getType(), pokemonB.name, colors.reset)
+         print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
+         pokemonB.health = int(pokemonB.health) - dmg
+         playerData = {
+             "pokemonA": pokemonA,
+             "pokemonB": pokemonB
+         }
+         return playerData
+
+
+
    playerOptions = [0,1,2,3,4]
    index = 0
     #algorithm for move data finds the moves in the pokemon and finds the actual move data from that
