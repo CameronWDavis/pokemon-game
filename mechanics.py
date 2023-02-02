@@ -9,7 +9,9 @@ class Moves:
         self.PP = PP
         self.power = power
         self.accuracy = accuracy
-
+        
+        
+#this is a function for color and changing the color of console codes
 
     def getType(self):
         color = ""
