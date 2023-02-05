@@ -101,9 +101,13 @@ def addpokemon(array: Pokemon,que):
 
 #function to calculate damage using the
 def calculateDamage(move:Moves,pokemonA:Pokemon,pokemonB:Pokemon):
-    power = int(move.power) #declare power
-    attackPokemon = int(pokemonA.attack) #attack of pokemon A
-    defensePokemon = int(pokemonB.defense) #attack of pokemon B
+    #ran into buggs while testing on mac for int not having attribute of power
+    power = move.power
+    power = int(power) #declare power
+    attackPokemon = pokemonA.attack
+    attackPokemon = int(attackPokemon) #attack of pokemon A
+    defensePokemon = pokemonB.defense
+    defensePokemon = int(defensePokemon) #attack of pokemon B
     stab = 1.5 if move.type == pokemonA.type else 1 #same type attack bonus
     TE = typeMatchup(move, pokemonB) # type matchup function
     randomValue = random.uniform(0.5,1) #random value with range 0.5 to 1
@@ -453,6 +457,4 @@ while(gameLoop):
             #to stop a infinite loop if the len of the tokens equal append to say player went most recent
             if len(rocketTurns) == len(playerTurns):
                 playerTurns.append(1)
-
-
 
