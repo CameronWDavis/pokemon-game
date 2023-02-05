@@ -397,7 +397,7 @@ if coinToss == 1:
 #else we start with team rocket
 else:
     print(colors.fontcolor.red,"Team Rocket has won the coin toss and will go first!",colors.reset)
-    print("Let the Battle Begin")
+    print("Let the Battle Begin!")
     rocketData = rocketMove(rocketQue[0], movesArray, playerQue[0],rocketOptions)
     playerQue[0].health = rocketData["pokemonPlayer"].health
     rocketTurns.append(1) #we need to append to the turns to see who went last
@@ -420,13 +420,13 @@ while(gameLoop):
 
     #checking player health que
     if int(playerQue[0].health) <= 0:
-        print("Now ",playerQue[0].getType(),playerQue[0].name,colors.reset," faints into its pokeball")
+        print(colors.fontcolor.purple,playerName,"'s ",colors.reset,playerQue[0].getType(),playerQue[0].name,colors.reset," faints into its pokeball")
         playerQue.pop(0)
         playerOptions = ["1","2","3","4","5"]
         if len(playerTurns) > 1:  #resetting the moves
             del playerData
         if len(playerQue) != 0:
-          print("Now ",playerQue[0].getType(),playerQue[0].name,colors.reset," your up to battle next!")
+          print(playerQue[0].getType(),playerQue[0].name,colors.reset," is up next for ",colors.fontcolor.purple,playerName,colors.reset," in this Pokemon battle!")
 
 
     #checking who should take the current move
@@ -458,5 +458,4 @@ while(gameLoop):
             #to stop a infinite loop if the len of the tokens equal append to say player went most recent
             if len(rocketTurns) == len(playerTurns):
                 playerTurns.append(1)
-
 
