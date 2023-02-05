@@ -2,7 +2,7 @@ from Color import colors #import for color
 #Pokemon class to generate a pokemon object
 #author Cameron Davis
 #purpse is to allow for generation of pokemon object
-class newPokemon:
+class Pokemon:
     #constructor for pokemon object
     def __init__(self,name,type,health,attack,defense,height,weight,moves):
         self.name = name
@@ -32,4 +32,6 @@ class newPokemon:
             case "Normal":
                 color = colors.fontcolor.lightgrey
                 return color
+
+
 
