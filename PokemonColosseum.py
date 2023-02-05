@@ -113,7 +113,7 @@ def calculateDamage(move:Moves,pokemonA:newPokemon,pokemonB:newPokemon):
 
 #function to calcuate the type matchup of different pokemon
 def typeMatchup(move:Moves, pokemonB:newPokemon):
-    dmg = 1
+    dmg = 1 # set damage equal to one for the rest of them just follow the chart for types
     if (move.type == "Fire" and pokemonB.type == "Fire") or (move.type == "Fire" and pokemonB.type == "Water"):
         dmg = 0.5
     elif move.type == "Fire" and pokemonB.type == "Grass":
@@ -128,7 +128,7 @@ def typeMatchup(move:Moves, pokemonB:newPokemon):
         dmg = 0.5
     elif(move.type == "Grass" and pokemonB.type == "Grass") or (move.type == "Grass" and pokemonB.type == "Fire"):
         dmg = 0.5
-    elif move.type == "Grass" and pokemonB.type == "Water":
+    elif (move.type == "Grass" and pokemonB.type == "Water") or (move.type == "Grass" and pokemonB.type == "Electric"):
         dmg = 2
     else:
         dmg = 1
@@ -458,4 +458,5 @@ while(gameLoop):
             #to stop a infinite loop if the len of the tokens equal append to say player went most recent
             if len(rocketTurns) == len(playerTurns):
                 playerTurns.append(1)
+
 
