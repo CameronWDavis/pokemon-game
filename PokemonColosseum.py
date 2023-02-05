@@ -1,4 +1,3 @@
-
 # Cameron Davis
 # Dr.Liu
 # 1/27/2023
@@ -141,7 +140,7 @@ def typeMatchup(move:Moves, pokemonB:Pokemon):
 #module for players moves
 def playerTurn(pokemonA: Pokemon,pokemonB: Pokemon,movesArray: Moves,playerAllowed):
     #sets a array of size 4 for adding move data
-   playerOptions = [None] * 5
+   playerOptions = [Moves(0,0,0,0,0,0,0)] * 5
 
     #code for dealing with Magikarp
    if pokemonA.name == "Magikarp":
@@ -454,4 +453,6 @@ while(gameLoop):
             #to stop a infinite loop if the len of the tokens equal append to say player went most recent
             if len(rocketTurns) == len(playerTurns):
                 playerTurns.append(1)
+
+
 
