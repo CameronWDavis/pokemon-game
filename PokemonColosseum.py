@@ -1,3 +1,4 @@
+
 # Cameron Davis
 # Dr.Liu
 # 1/27/2023
@@ -140,7 +141,7 @@ def typeMatchup(move:Moves, pokemonB:Pokemon):
 #module for players moves
 def playerTurn(pokemonA: Pokemon,pokemonB: Pokemon,movesArray: Moves,playerAllowed):
     #sets a array of size 4 for adding move data
-   playerOptions = [0, 1, 2, 3, 4]
+   playerOptions = [None] * 5
 
     #code for dealing with Magikarp
    if pokemonA.name == "Magikarp":
@@ -200,7 +201,7 @@ def playerTurn(pokemonA: Pokemon,pokemonB: Pokemon,movesArray: Moves,playerAllow
        print("2) ", playerOptions[1].getType(), playerOptions[1].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[1],colors.reset)
        print("3) ", playerOptions[2].getType(), playerOptions[2].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[2],colors.reset)
        print("4) ", playerOptions[3].getType(), playerOptions[3].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[3],colors.reset)
-       print("5) ", playerOptions[4], playerOptions[4].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[4],colors.reset)
+       print("5) ", playerOptions[4].getType(), playerOptions[4].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[4],colors.reset)
        choice = input("Move choice? -> ")
 
        for c in playerAllowed:
@@ -453,7 +454,4 @@ while(gameLoop):
             #to stop a infinite loop if the len of the tokens equal append to say player went most recent
             if len(rocketTurns) == len(playerTurns):
                 playerTurns.append(1)
-
-
-
 
