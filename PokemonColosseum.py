@@ -5,14 +5,14 @@
 
 #import statements for other python modules
 import random #import for random number generation
-from pokemon import newPokemon #import for pokemon object
+from pokemon import Pokemon #import for pokemon object
 from Color import colors #import for color
 from mechanics import Moves #import for moves
 
 
 
 #this is the moveset for team rocket
-def rocketMove(pokemonRocket: newPokemon, moveArray, pokemonPlayer:newPokemon,rocketOptions):
+def rocketMove(pokemonRocket: Pokemon, moveArray, pokemonPlayer:Pokemon,rocketOptions):
     #choice array is the move selected from our array randonly
     choice = random.choice(rocketOptions)
 
@@ -90,17 +90,17 @@ def rocketMove(pokemonRocket: newPokemon, moveArray, pokemonPlayer:newPokemon,ro
     return rocketData
 
 #function to add pokemon to a que
-def addpokemon(array: newPokemon,que):
+def addpokemon(array: Pokemon,que):
 
     index = random.randint(0,(len(array) - 1) )
-    randomPokemon = newPokemon(array[index].name, array[index].type, array[index].health,array[index].attack, array[index].defense, array[index].height, array[index].weight, array[index].moves)
+    randomPokemon = Pokemon(array[index].name, array[index].type, array[index].health,array[index].attack, array[index].defense, array[index].height, array[index].weight, array[index].moves)
     array.pop(index)
     que.append(randomPokemon)
 
 
 
 #function to calculate damage using the
-def calculateDamage(move:Moves,pokemonA:newPokemon,pokemonB:newPokemon):
+def calculateDamage(move:Moves,pokemonA:Pokemon,pokemonB:Pokemon):
     power = int(move.power) #declare power
     attackPokemon = int(pokemonA.attack) #attack of pokemon A
     defensePokemon = int(pokemonB.defense) #attack of pokemon B
@@ -112,7 +112,7 @@ def calculateDamage(move:Moves,pokemonA:newPokemon,pokemonB:newPokemon):
     return finalValue #return final value
 
 #function to calcuate the type matchup of different pokemon
-def typeMatchup(move:Moves, pokemonB:newPokemon):
+def typeMatchup(move:Moves, pokemonB:Pokemon):
     dmg = 1 # set damage equal to one for the rest of them just follow the chart for types
     if (move.type == "Fire" and pokemonB.type == "Fire") or (move.type == "Fire" and pokemonB.type == "Water"):
         dmg = 0.5
@@ -138,7 +138,7 @@ def typeMatchup(move:Moves, pokemonB:newPokemon):
 
 
 #module for players moves
-def playerTurn(pokemonA: newPokemon,pokemonB: newPokemon,movesArray: Moves,playerAllowed):
+def playerTurn(pokemonA: Pokemon,pokemonB: Pokemon,movesArray: Moves,playerAllowed):
     #sets a array of size 4 for adding move data
    playerOptions = [0, 1, 2, 3, 4]
 
@@ -287,7 +287,7 @@ with open('pokemon-data.csv', 'r') as file:
             pokemonWeight = pokemonData[6]
             pokemonMove1 = pokemonData[7]
             if len(pokemonData) == 8:
-                userPokemon = newPokemon(pokemonName, pokemonType, pokemonHealth, pokemonAttack, pokemonDefense,
+                userPokemon = Pokemon(pokemonName, pokemonType, pokemonHealth, pokemonAttack, pokemonDefense,
                                          pokemonHeight, pokemonWeight, pokemonMove1)
                 pokemonArray.append(userPokemon)
             elif len(pokemonData) > 8:
@@ -295,7 +295,7 @@ with open('pokemon-data.csv', 'r') as file:
                 pokemonMove3 = pokemonData[9]
                 pokemonMove4 = pokemonData[10]
                 pokemonMove5 = pokemonData[11]
-                userPokemon = newPokemon(pokemonName, pokemonType, pokemonHealth, pokemonAttack, pokemonDefense,
+                userPokemon = Pokemon(pokemonName, pokemonType, pokemonHealth, pokemonAttack, pokemonDefense,
                                          pokemonHeight, pokemonWeight,
                                          [pokemonMove1, pokemonMove2, pokemonMove3, pokemonMove4, pokemonMove5])
                 pokemonArray.append(userPokemon)
