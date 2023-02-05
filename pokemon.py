@@ -1,6 +1,9 @@
 from Color import colors #import for color
-
+#Pokemon class to generate a pokemon object
+#author Cameron Davis
+#purpse is to allow for generation of pokemon object
 class newPokemon:
+    #constructor for pokemon object
     def __init__(self,name,type,health,attack,defense,height,weight,moves):
         self.name = name
         self.type = type
@@ -10,7 +13,7 @@ class newPokemon:
         self.weight = weight
         self.height = height
         self.moves = moves
-
+    #this finds the colors to add to terminal
     def getType(self):
         color = ""
         match self.type:
