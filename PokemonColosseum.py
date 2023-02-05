@@ -194,18 +194,13 @@ def playerTurn(pokemonA: Pokemon,pokemonB: Pokemon,movesArray: Moves,playerAllow
 
    #while loop for player choices this prints a menu and makes sure player makes a valid choice
    while testValue == 0:
-       color0 = playerOptions[0].getType()
-       color1 = playerOptions[1].getType()
-       color2 = playerOptions[2].getType()
-       color3 = playerOptions[3].getType()
-       color4 = playerOptions[4].getType()
        print("How will ", pokemonA.getType(), pokemonA.name, colors.reset, " attack ", pokemonB.getType(),
              pokemonB.name, colors.reset)
-       print("1) ", color0, playerOptions[0].name, colors.reset,colors.fontcolor.pink,notAllowed[0],colors.reset)
-       print("2) ", color1, playerOptions[1].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[1],colors.reset)
-       print("3) ", color2, playerOptions[2].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[2],colors.reset)
-       print("4) ", color3, playerOptions[3].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[3],colors.reset)
-       print("5) ", color4, playerOptions[4].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[4],colors.reset)
+       print("1) ", playerOptions[0].getType(), playerOptions[0].name, colors.reset,colors.fontcolor.pink,notAllowed[0],colors.reset)
+       print("2) ", playerOptions[1].getType(), playerOptions[1].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[1],colors.reset)
+       print("3) ", playerOptions[2].getType(), playerOptions[2].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[2],colors.reset)
+       print("4) ", playerOptions[3].getType(), playerOptions[3].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[3],colors.reset)
+       print("5) ", playerOptions[4], playerOptions[4].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[4],colors.reset)
        choice = input("Move choice? -> ")
 
        for c in playerAllowed:
@@ -222,31 +217,31 @@ def playerTurn(pokemonA: Pokemon,pokemonB: Pokemon,movesArray: Moves,playerAllow
        #each statement prints
          case "1":
            dmg = calculateDamage(playerOptions[0],pokemonA,pokemonB)
-           print(pokemonA.getType(),pokemonA.name,colors.reset," used ",color0,playerOptions[0].name,colors.reset," on ",pokemonB.getType(),pokemonB.name,colors.reset)
+           print(pokemonA.getType(),pokemonA.name,colors.reset," used ",playerOptions[0].getType(),playerOptions[0].name,colors.reset," on ",pokemonB.getType(),pokemonB.name,colors.reset)
            print("Damage to ",pokemonB.getType(),pokemonB.name,colors.reset," is ",dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
          case "2":
            dmg = calculateDamage(playerOptions[1], pokemonA, pokemonB)
-           print(pokemonA.getType(),pokemonA.name,colors.reset," used ", color1, playerOptions[1].name, colors.reset, " on ", pokemonB.getType(), pokemonB.name, colors.reset)
+           print(pokemonA.getType(),pokemonA.name,colors.reset," used ", playerOptions[1].getType(), playerOptions[1].name, colors.reset, " on ", pokemonB.getType(), pokemonB.name, colors.reset)
            print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
          case "3":
            dmg = calculateDamage(playerOptions[2], pokemonA, pokemonB)
-           print(pokemonA.getType(),pokemonA.name,colors.reset," used ", color2, playerOptions[2].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
+           print(pokemonA.getType(),pokemonA.name,colors.reset," used ", playerOptions[2].getType(), playerOptions[2].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
            print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
          case "4":
            dmg = calculateDamage(playerOptions[3], pokemonA, pokemonB)
-           print(pokemonA.getType(),pokemonA.name,colors.reset," used ", color3, playerOptions[3].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
+           print(pokemonA.getType(),pokemonA.name,colors.reset," used ", playerOptions[3].getType(), playerOptions[3].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
            print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
          case "5":
            dmg = calculateDamage(playerOptions[4], pokemonA, pokemonB)
-           print(pokemonA.getType(),pokemonA.name,colors.reset, " used ", color4, playerOptions[4].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
+           print(pokemonA.getType(),pokemonA.name,colors.reset, " used ", playerOptions[4].getType(), playerOptions[4].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
            print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
@@ -458,6 +453,7 @@ while(gameLoop):
             #to stop a infinite loop if the len of the tokens equal append to say player went most recent
             if len(rocketTurns) == len(playerTurns):
                 playerTurns.append(1)
+
 
 
 
