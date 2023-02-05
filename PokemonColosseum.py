@@ -25,7 +25,9 @@ def rocketMove(pokemonRocket: Pokemon, moveArray, pokemonPlayer:Pokemon,rocketOp
           #damage and calculations for magikarp
         if pokemonRocket.moves.strip() == i.name:
             rocketMoves[0] = i
-            dmg = calculateDamage(rocketMoves[0], pokemonRocket, pokemonPlayer)
+            stab = 1.5 if rocketMoves[0].type == pokemonRocket.type else 1
+            typeEff = typeMatchup(rocketMoves[0], pokemonPlayer)  # type matchup function
+            dmg = calculateDamage(int(rocketMoves[0].power), int(pokemonRocket.attack), int(pokemonPlayer.defense), stab, typeEff)
             print("Team rockets ", pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ",
             rocketMoves[0].getType(), rocketMoves[0].name, colors.reset, " on ", pokemonPlayer.getType(),pokemonPlayer.name, colors.reset)
             print("Damage to ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset, " is ", dmg)
@@ -49,33 +51,42 @@ def rocketMove(pokemonRocket: Pokemon, moveArray, pokemonPlayer:Pokemon,rocketOp
     #this is a switch statement for the random option that is selected for team rockets move
     match choice:
         case 1:
-
-            dmg = calculateDamage(rocketMoves[0], pokemonRocket, pokemonPlayer)
+            stab = 1.5 if rocketMoves[0].type == pokemonRocket.type else 1
+            typeEff = typeMatchup(rocketMoves[0], pokemonPlayer)  # type matchup function
+            dmg = calculateDamage(int(rocketMoves[0].power),int(pokemonRocket.attack),int(pokemonPlayer.defense),stab,typeEff)
             print("Team rockets ", pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ", rocketMoves[0].getType(), rocketMoves[0].name, colors.reset," on ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset)
             print("Damage to ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset, " is ", dmg)
             pokemonPlayer.health = int(pokemonPlayer.health) - dmg
             rocketOptions.remove(choice)
         case 2:
-            dmg = calculateDamage(rocketMoves[1], pokemonRocket, pokemonPlayer)
+            stab = 1.5 if rocketMoves[1].type == pokemonRocket.type else 1
+            typeEff = typeMatchup(rocketMoves[1], pokemonPlayer)  # type matchup function
+            dmg = calculateDamage(int(rocketMoves[1].power), int(pokemonRocket.attack), int(pokemonPlayer.defense), stab, typeEff)
             print("Team rockets ",pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ", rocketMoves[1].getType(),rocketMoves[1].name, colors.reset, " on ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset)
             print("Damage to ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset, " is ", dmg)
             pokemonPlayer.health = int(pokemonPlayer.health) - dmg
             rocketOptions.remove(choice)
         case 3:
-            dmg = calculateDamage(rocketMoves[2], pokemonRocket, pokemonPlayer)
+            stab = 1.5 if rocketMoves[2].type == pokemonRocket.type else 1
+            typeEff = typeMatchup(rocketMoves[2], pokemonPlayer)  # type matchup function
+            dmg = calculateDamage(int(rocketMoves[2].power), int(pokemonRocket.attack), int(pokemonPlayer.defense), stab, typeEff)
             print("Team rockets ",pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ", rocketMoves[2].getType(),rocketMoves[2].name, colors.reset, " on ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset)
             print("Damage to ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset, " is ", dmg)
             pokemonPlayer.health = int(pokemonPlayer.health) - dmg
             rocketOptions.remove(choice)
         case 4:
-            dmg = calculateDamage(rocketMoves[3], pokemonRocket, pokemonPlayer)
+            stab = 1.5 if rocketMoves[3].type == pokemonRocket.type else 1
+            typeEff = typeMatchup(rocketMoves[3], pokemonPlayer)  # type matchup function
+            dmg = calculateDamage(int(rocketMoves[3].power), int(pokemonRocket.attack), int(pokemonPlayer.defense), stab, typeEff)
             print("Team rockets ",pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ", rocketMoves[3].getType(),
                   rocketMoves[3].name, colors.reset, " on ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset)
             print("Damage to ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset, " is ", dmg)
             pokemonPlayer.health = int(pokemonPlayer.health) - dmg
             rocketOptions.remove(choice)
         case 5:
-            dmg = calculateDamage(rocketMoves[4], pokemonRocket, pokemonPlayer)
+            stab = 1.5 if rocketMoves[4].type == pokemonRocket.type else 1
+            typeEff = typeMatchup(rocketMoves[4], pokemonPlayer)  # type matchup function
+            dmg = calculateDamage(int(rocketMoves[4].power), int(pokemonRocket.attack), int(pokemonPlayer.defense), stab, typeEff)
             print("Team rockets ",pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ", rocketMoves[4].getType(),
                   rocketMoves[4].name, colors.reset, " on ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset)
             print("Damage to ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset, " is ", dmg)
@@ -100,18 +111,9 @@ def addpokemon(array: Pokemon,que):
 
 
 #function to calculate damage using the
-def calculateDamage(move:Moves,pokemonA:Pokemon,pokemonB:Pokemon):
-    #ran into buggs while testing on mac for int not having attribute of power
-    power = move.power
-    power = int(power) #declare power
-    attackPokemon = pokemonA.attack
-    attackPokemon = int(attackPokemon) #attack of pokemon A
-    defensePokemon = pokemonB.defense
-    defensePokemon = int(defensePokemon) #attack of pokemon B
-    stab = 1.5 if move.type == pokemonA.type else 1 #same type attack bonus
-    TE = typeMatchup(move, pokemonB) # type matchup function
+def calculateDamage(power,attackPokemon,defensePokemon,stab,typeEff):
     randomValue = random.uniform(0.5,1) #random value with range 0.5 to 1
-    finalValue = (power * (attackPokemon/defensePokemon)) * (stab * TE) * randomValue #function for final game value
+    finalValue = (power * (attackPokemon/defensePokemon)) * (stab * typeEff) * randomValue #function for final game value
     finalValue = round(finalValue) #making sure value is whole number
     return finalValue #return final value
 
@@ -220,31 +222,41 @@ def playerTurn(pokemonA: Pokemon,pokemonB: Pokemon,movesArray: Moves,playerAllow
    match choice:
        #each statement prints
          case "1":
-           dmg = calculateDamage(playerOptions[0],pokemonA,pokemonB)
+           stab = 1.5 if playerOptions[0].type == pokemonA.type else 1
+           typeEff = typeMatchup(playerOptions[0], pokemonB)  # type matchup function
+           dmg = calculateDamage(int(playerOptions[0].power), int(pokemonA.attack), int(pokemonB.defense), stab, typeEff)
            print(pokemonA.getType(),pokemonA.name,colors.reset," used ",playerOptions[0].getType(),playerOptions[0].name,colors.reset," on ",pokemonB.getType(),pokemonB.name,colors.reset)
            print("Damage to ",pokemonB.getType(),pokemonB.name,colors.reset," is ",dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
          case "2":
-           dmg = calculateDamage(playerOptions[1], pokemonA, pokemonB)
+           stab = 1.5 if playerOptions[1].type == pokemonA.type else 1
+           typeEff = typeMatchup(playerOptions[1], pokemonB)  # type matchup function
+           dmg = calculateDamage(int(playerOptions[1].power), int(pokemonA.attack), int(pokemonB.defense), stab, typeEff)
            print(pokemonA.getType(),pokemonA.name,colors.reset," used ", playerOptions[1].getType(), playerOptions[1].name, colors.reset, " on ", pokemonB.getType(), pokemonB.name, colors.reset)
            print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
          case "3":
-           dmg = calculateDamage(playerOptions[2], pokemonA, pokemonB)
+           stab = 1.5 if playerOptions[2].type == pokemonA.type else 1
+           typeEff = typeMatchup(playerOptions[2], pokemonB)  # type matchup function
+           dmg = calculateDamage(int(playerOptions[2].power), int(pokemonA.attack), int(pokemonB.defense), stab, typeEff)
            print(pokemonA.getType(),pokemonA.name,colors.reset," used ", playerOptions[2].getType(), playerOptions[2].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
            print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
          case "4":
-           dmg = calculateDamage(playerOptions[3], pokemonA, pokemonB)
+           stab = 1.5 if playerOptions[3].type == pokemonA.type else 1
+           typeEff = typeMatchup(playerOptions[3], pokemonB)  # type matchup function
+           dmg = calculateDamage(int(playerOptions[3].power), int(pokemonA.attack), int(pokemonB.defense), stab, typeEff)
            print(pokemonA.getType(),pokemonA.name,colors.reset," used ", playerOptions[3].getType(), playerOptions[3].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
            print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
            pokemonB.health = int(pokemonB.health) - dmg
            playerAllowed.remove(choice)
          case "5":
-           dmg = calculateDamage(playerOptions[4], pokemonA, pokemonB)
+           stab = 1.5 if playerOptions[4].type == pokemonA.type else 1
+           typeEff = typeMatchup(playerOptions[4], pokemonB)  # type matchup function
+           dmg = calculateDamage(int(playerOptions[4].power), int(pokemonA.attack), int(pokemonB.defense), stab, typeEff)
            print(pokemonA.getType(),pokemonA.name,colors.reset, " used ", playerOptions[4].getType(), playerOptions[4].name, colors.reset, " on ", pokemonB.getType(),pokemonB.name, colors.reset)
            print("Damage to ", pokemonB.getType(), pokemonB.name, colors.reset, " is ", dmg)
            pokemonB.health = int(pokemonB.health) - dmg
@@ -457,4 +469,6 @@ while(gameLoop):
             #to stop a infinite loop if the len of the tokens equal append to say player went most recent
             if len(rocketTurns) == len(playerTurns):
                 playerTurns.append(1)
+
+
 
