@@ -13,7 +13,7 @@ from mechanics import Moves #import for moves
 
 #this is the moveset for team rocket
 def rocketMove(pokemonRocket: newPokemon, moveArray, pokemonPlayer:newPokemon,rocketOptions):
-
+    #choice array is the move selected from our array randonly
     choice = random.choice(rocketOptions)
 
     #array to hold all moves
@@ -22,10 +22,9 @@ def rocketMove(pokemonRocket: newPokemon, moveArray, pokemonPlayer:newPokemon,ro
     if pokemonRocket.name == "Magikarp":
         #for loop for setting the value
       for i in moveArray:
-        if i.strip() == i.name:
+          #damage and calculations for magikarp
+        if pokemonRocket.moves.strip() == i.name:
             rocketMoves[0] = i
-
-
             dmg = calculateDamage(rocketMoves[0], pokemonRocket, pokemonPlayer)
             print("Team rockets ", pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ",
             rocketMoves[0].getType(), rocketMoves[0].name, colors.reset, " on ", pokemonPlayer.getType(),pokemonPlayer.name, colors.reset)
@@ -36,11 +35,12 @@ def rocketMove(pokemonRocket: newPokemon, moveArray, pokemonPlayer:newPokemon,ro
                 "pokemonRocket": pokemonRocket,
             }
             return rocketData
-
+    #set the index value equal to 0
     index = 0
     # algorithm for move data finds the moves in the pokemon and finds the actual move data from that
     for x in pokemonRocket.moves:
         for i in moveArray:
+            #strip teh whitespace from the moves
             if x.strip() == i.name:
                 rocketMoves[index] = i
                 index += 1
@@ -49,6 +49,7 @@ def rocketMove(pokemonRocket: newPokemon, moveArray, pokemonPlayer:newPokemon,ro
     #this is a switch statement for the random option that is selected for team rockets move
     match choice:
         case 1:
+
             dmg = calculateDamage(rocketMoves[0], pokemonRocket, pokemonPlayer)
             print("Team rockets ", pokemonRocket.getType(), pokemonRocket.name, colors.reset, " used ", rocketMoves[0].getType(), rocketMoves[0].name, colors.reset," on ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset)
             print("Damage to ", pokemonPlayer.getType(), pokemonPlayer.name, colors.reset, " is ", dmg)
@@ -90,23 +91,25 @@ def rocketMove(pokemonRocket: newPokemon, moveArray, pokemonPlayer:newPokemon,ro
 
 #function to add pokemon to a que
 def addpokemon(array: newPokemon,que):
+
     index = random.randint(0,(len(array) - 1) )
     randomPokemon = newPokemon(array[index].name, array[index].type, array[index].health,array[index].attack, array[index].defense, array[index].height, array[index].weight, array[index].moves)
     array.pop(index)
     que.append(randomPokemon)
 
 
+
 #function to calculate damage using the
 def calculateDamage(move:Moves,pokemonA:newPokemon,pokemonB:newPokemon):
-    power = int(move.power)
-    attackPokemon = int(pokemonA.attack)
-    defensePokemon = int(pokemonB.defense)
-    stab = 1.5 if move.type == pokemonA.type else 1
-    TE = typeMatchup(move, pokemonB)
-    randomValue = random.uniform(0.5,1)
-    finalValue = (power * (attackPokemon/defensePokemon)) * (stab * TE) * randomValue
-    finalValue = round(finalValue)
-    return finalValue
+    power = int(move.power) #declare power
+    attackPokemon = int(pokemonA.attack) #attack of pokemon A
+    defensePokemon = int(pokemonB.defense) #attack of pokemon B
+    stab = 1.5 if move.type == pokemonA.type else 1 #same type attack bonus
+    TE = typeMatchup(move, pokemonB) # type matchup function
+    randomValue = random.uniform(0.5,1) #random value with range 0.5 to 1
+    finalValue = (power * (attackPokemon/defensePokemon)) * (stab * TE) * randomValue #function for final game value
+    finalValue = round(finalValue) #making sure value is whole number
+    return finalValue #return final value
 
 #function to calcuate the type matchup of different pokemon
 def typeMatchup(move:Moves, pokemonB:newPokemon):
@@ -117,7 +120,7 @@ def typeMatchup(move:Moves, pokemonB:newPokemon):
         dmg = 2
     elif move.type == "Water" and pokemonB.type == "Fire":
         dmg = 2
-    elif (move.type == "Water" and pokemonB.type == "Water") or (move.type == "Water" and pokemonB.type == "Grass"):
+    elif (move.type == "Water" and pokemonB.type == "Water") or (move.type == "Water" and pokemonB.type == "Grass") or (move.type == "Water" and pokemonB.type == "Electric"):
         dmg = 0.5
     elif move.type == "Electric" and pokemonB.type == "Water":
         dmg = 2
@@ -131,6 +134,8 @@ def typeMatchup(move:Moves, pokemonB:newPokemon):
         dmg = 1
 
     return dmg
+
+
 
 #module for players moves
 def playerTurn(pokemonA: newPokemon,pokemonB: newPokemon,movesArray: Moves,playerAllowed):
@@ -171,6 +176,23 @@ def playerTurn(pokemonA: newPokemon,pokemonB: newPokemon,movesArray: Moves,playe
                index += 1
 
    testValue = 0
+
+   #array for displaying things being not available
+   notAllowed = ["Not Available!","Not Available!","Not Available!","Not Available!","Not Available!"]
+   #if statement to see if things are in list
+   if "1" in playerAllowed:
+       notAllowed[0] = " "
+   if "2" in playerAllowed:
+       notAllowed[1] = " "
+   if "3" in playerAllowed:
+       notAllowed[2] = " "
+   if "4" in playerAllowed:
+       notAllowed[3] = " "
+   if "5" in playerAllowed:
+       notAllowed[4] = " "
+
+
+   #while loop for player choices this prints a menu and makes sure player makes a valid choice
    while testValue == 0:
        color0 = playerOptions[0].getType()
        color1 = playerOptions[1].getType()
@@ -179,11 +201,11 @@ def playerTurn(pokemonA: newPokemon,pokemonB: newPokemon,movesArray: Moves,playe
        color4 = playerOptions[4].getType()
        print("How will ", pokemonA.getType(), pokemonA.name, colors.reset, " attack ", pokemonB.getType(),
              pokemonB.name, colors.reset)
-       print("1) ", color0, playerOptions[0].name, colors.reset)
-       print("2) ", color1, playerOptions[1].name, colors.reset)
-       print("3) ", color2, playerOptions[2].name, colors.reset)
-       print("4) ", color3, playerOptions[3].name, colors.reset)
-       print("5) ", color4, playerOptions[4].name, colors.reset)
+       print("1) ", color0, playerOptions[0].name, colors.reset,colors.fontcolor.pink,notAllowed[0],colors.reset)
+       print("2) ", color1, playerOptions[1].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[1],colors.reset)
+       print("3) ", color2, playerOptions[2].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[2],colors.reset)
+       print("4) ", color3, playerOptions[3].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[3],colors.reset)
+       print("5) ", color4, playerOptions[4].name, colors.reset,colors.reset,colors.fontcolor.pink,notAllowed[4],colors.reset)
        choice = input("Move choice? -> ")
 
        for c in playerAllowed:
@@ -197,6 +219,7 @@ def playerTurn(pokemonA: newPokemon,pokemonB: newPokemon,movesArray: Moves,playe
 
     #switch statement for choice based on what user selects as the move
    match choice:
+       #each statement prints
          case "1":
            dmg = calculateDamage(playerOptions[0],pokemonA,pokemonB)
            print(pokemonA.getType(),pokemonA.name,colors.reset," used ",color0,playerOptions[0].name,colors.reset," on ",pokemonB.getType(),pokemonB.name,colors.reset)
@@ -230,10 +253,10 @@ def playerTurn(pokemonA: newPokemon,pokemonB: newPokemon,movesArray: Moves,playe
          case _:
            print("Invalid please enter a proper number! From 1 - 5")
            playerTurn(pokemonA,pokemonB,movesArray,playerAllowed)
-   playerData = {
- "pokemonA":pokemonA,
- "pokemonB":pokemonB,
- "playerAllowed":playerAllowed
+   playerData = { #return data about the move with Pokemon A,  B , and the allowed moves
+ "pokemonA":pokemonA, #players pokemon
+ "pokemonB":pokemonB, #attackers pokemon
+ "playerAllowed":playerAllowed #allowed moves array
 }
    return playerData
 
@@ -248,10 +271,12 @@ rocketQue = []
 # this is where I read in the file
 with open('pokemon-data.csv', 'r') as file:
     fileLine = file.readline()
+    #read the file until the end of the file
     while fileLine:
         fileLine = file.readline()
         fileLine = fileLine.replace('[', '').replace(']', '').replace('"', '').replace("'","")
         pokemonData = fileLine.split(",")
+        #if the pokemon length is greater than one
         if len(pokemonData) > 1:
             pokemonName = pokemonData[0]
             pokemonType = pokemonData[1]
@@ -275,12 +300,13 @@ with open('pokemon-data.csv', 'r') as file:
                                          [pokemonMove1, pokemonMove2, pokemonMove3, pokemonMove4, pokemonMove5])
                 pokemonArray.append(userPokemon)
 
+#file processing for the moves
 with open('moves-data.csv', 'r') as file:
     fileLine = file.readline()
-    while fileLine:
+    while fileLine:  #until the file is empty keep reading lines
         fileLine = file.readline()
         pokemonData = fileLine.split(",")
-        if len(pokemonData) > 1:
+        if len(pokemonData) > 1: #checking for errors
             moveName = pokemonData[0]
             moveType = pokemonData[1]
             moveCatagory = pokemonData[2]
@@ -309,6 +335,7 @@ _/ ___\/  _ \|  |  /  _ \/  ___//  ___// __ \|  |  \/     \
      \/                      \/     \/     \/            \/ 
                                 
 """,colors.reset)
+#welcoming section for the project
 print("Developed by",colors.fontcolor.purple,"Cameron Davis",colors.reset)
 print("Professor",colors.fontcolor.purple,"Dr.Liu Xudong",colors.reset)
 playerName = input("Enter your player Name: ")
@@ -330,6 +357,8 @@ print("Team Rocket enters with ",colRocket1,rocketQue[0].name,colors.reset,colRo
 while countPlay != 0:
     addpokemon(pokemonArray,playerQue)
     countPlay -= 1
+
+#setting colors for each item in que
 colPlayer1 = playerQue[0].getType()
 colPlayer2 = playerQue[1].getType()
 colPlayer3 = playerQue[2].getType()
@@ -341,6 +370,8 @@ coinToss = random.randint(1,2)
 
 
 print("flipping the coin and the answer is ....")
+
+#setting loop to true
 gameLoop = True
 
 
@@ -361,15 +392,15 @@ if coinToss == 1:
     print("Let the battle begin!")
     playerData = playerTurn(playerQue[0], rocketQue[0], movesArray,playerOptions)
     rocketQue[0].health = playerData["pokemonB"].health
-    playerTurns.append(1)
+    playerTurns.append(1)  #we need to append to the turns to see who went last
 
-#
+#else we start with team rocket
 else:
     print(colors.fontcolor.red,"Team Rocket has won the coin toss and will go first!",colors.reset)
     print("Let the Battle Begin")
     rocketData = rocketMove(rocketQue[0], movesArray, playerQue[0],rocketOptions)
     playerQue[0].health = rocketData["pokemonPlayer"].health
-    rocketTurns.append(1)
+    rocketTurns.append(1) #we need to append to the turns to see who went last
 
 #starting the game loop
 while(gameLoop):
@@ -381,7 +412,7 @@ while(gameLoop):
         print("Now ",rocketQue[0].getType(),rocketQue[0].name,colors.reset," faints into its pokeball")
         rocketQue.pop(0)
         rocketOptions = [1,2,3,4,5]
-        if len(rocketTurns) > 1:
+        if len(rocketTurns) > 1:   #resetting the moves
             del rocketData
         if len(rocketQue) != 0:
             print("Team Rocket sends out  ", rocketQue[0].getType(), rocketQue[0].name, colors.reset, " to battle you next!")
@@ -392,7 +423,7 @@ while(gameLoop):
         print("Now ",playerQue[0].getType(),playerQue[0].name,colors.reset," faints into its pokeball")
         playerQue.pop(0)
         playerOptions = ["1","2","3","4","5"]
-        if len(playerTurns) > 1:
+        if len(playerTurns) > 1:  #resetting the moves
             del playerData
         if len(playerQue) != 0:
           print("Now ",playerQue[0].getType(),playerQue[0].name,colors.reset," your up to battle next!")
@@ -419,6 +450,7 @@ while(gameLoop):
             print(playerName, " you loose")
             gameLoop = False
         else:
+            #if  the array is not empty we are going to allow the play er to make a move
             print(colors.fontcolor.purple,playerName,colors.reset, "your up!")
             playerData = playerTurn(playerQue[0], rocketQue[0], movesArray,playerOptions)
             rocketQue[0].health = playerData["pokemonB"].health
