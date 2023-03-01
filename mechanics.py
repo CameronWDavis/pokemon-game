@@ -17,7 +17,7 @@ class Moves:
         color = ""
         match self.type:
             case "Electric":
-                color = colors.fontcolor.yellow
+                color = colors.fontcolor.yellow #color asci codes
                 return color
             case "Fire":
                 color = colors.fontcolor.red
