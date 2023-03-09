@@ -22,7 +22,7 @@ class Moves:
             case "Fire":
                 color = colors.fontcolor.red
                 return color
-            case "Water":
+            case "Water": #this  is color for the pokemon types
                 color = colors.fontcolor.blue
                 return color
             case "Grass":
