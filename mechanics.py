@@ -3,6 +3,7 @@ from Color import colors #import for color
 #this is a class to generate a move object
 class Moves:
 #this is a constructor for the move
+#move object
     def __init__(self, name, type,category, contest, PP, power,accuracy):
         self.name = name
         self.type = type
